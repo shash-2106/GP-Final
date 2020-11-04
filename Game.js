@@ -26,16 +26,16 @@ class Game{
                 form = new Form()
                 form.display();
             }
-    player1 = createSprite(200,500);
+    player1 = createSprite(displayWidth/2 - 200, displayHeight - 1100);
     player1.addImage(exp_img);
     player1.scale = 0.8;
   
-    player2 = createSprite(400,500);
+    player2 = createSprite(displayWidth/2, displayHeight - 1100);
     player2.addImage(exp_img);
     player2.scale = 0.8;
   
 
-    player3 = createSprite(600,500);
+    player3 = createSprite(displayWidth/2 + 200, displayHeight - 1100);
     player3.addImage(exp_img);
     player3.scale = 0.8;
   
@@ -49,10 +49,26 @@ class Game{
                 form.hide();
 
                 Player.getPlayerInfo();
-                 image(back_img, 0, 0, 1000, 800);
+                 image(back_img, 0, 0, displayWidth, displayHeight);
                  var x = 100;
                  var y = 200;
                  var index = 0;
+
+                
+               /* edges = createEdgeSprites();
+                 player1.bounceOff(edges[0]);
+                 player1.bounceOff(edges[1]);
+                 player1.bounceOff(edges[2]);
+                 player1.bounceOff(edges[3]);
+                 player2.bounceOff(edges[0]);
+                 player2.bounceOff(edges[1]);
+                 player2.bounceOff(edges[2]);
+                 player2.bounceOff(edges[3]);
+                 player3.bounceOff(edges[0]);
+                 player3.bounceOff(edges[1]);
+                 player3.bounceOff(edges[2]);
+                 player3.bounceOff(edges[3]);*/
+                 
                  drawSprites();
                  for(var plr in allPlayers){
                     
@@ -76,9 +92,9 @@ class Game{
                      }
                      textSize(25);
                      fill("white");
-                     text("Player 1 : "+allPlayers.player1.score,50,50);
-                     text("Player 2 : "+allPlayers.player2.score,50,100);
-                     text("Player 3 : "+allPlayers.player3.score,50,150);
+                     text(allPlayers.player1.name+" : "+allPlayers.player1.score,50,50);
+                     text(allPlayers.player2.name+" : "+allPlayers.player2.score,50,100);
+                     text(allPlayers.player3.name+" : "+allPlayers.player3.score,50,150);
                     
                      //console.log(allPlayers);
                  
@@ -97,8 +113,8 @@ class Game{
                 }
             
                  if (frameCount % 20 === 0) {
-                     console.log("Hello");
-                     fruits = createSprite(random(100, 1000), 0, 100, 100);
+                   
+                     fruits = createSprite(random(100, displayWidth-100), 0, 100, 100);
                      fruits.velocityY = 6;
                      var rand = Math.round(random(1,4));
                      switch(rand){
@@ -134,7 +150,7 @@ class Game{
                  }
 
                  if(player.score >= 10){
-                     game.update(3);
+                     gameState = 3;
                  }
                  
                   
@@ -148,23 +164,34 @@ class Game{
     }
 
     end(){
-       console.log("Game Ended");
-       treasure = createSprite(550,475);
+        image(back_img2, 0, 0, displayWidth, displayHeight);
+      // console.log("Game Ended");
+       treasure = createSprite(displayWidth/2 - 150, displayHeight/2 + 70);
        treasure.addImage(treasure_img);
        treasure.scale = 0.3;
+       fill("white");
+       textSize(45);
+       text("You finally found the Treasure! Your rank is "+player.rank1,displayWidth/2 - 250, 75)
     }
     secondlevel(){
        fruits.destroy();
         form.hide();
         player.getPlayersAtEnd();
+        
 
-        console.log(player.rank1);
+       
         Player.getPlayerInfo();
-         image(back_img2, 0, 0, 1000, 800);
+         image(back_img2, 0, 0, displayWidth, displayHeight);
          var x = 100;
          var y = 200;
          var index = 0;
          drawSprites();
+         textSize(20);
+                     fill("white");
+                     text("Bravo determined explorers for coming this far! But this stage is going to be demanding…",displayWidth/2 - 100, 35);
+                     text("Seek for an asset which’ll help you to open the treasure, an asset which is outstanding!", displayWidth/2 - 100, 70);
+                     text("An asset undermined for its value, staying far from greed, ", displayWidth/2 - 60, 105);
+                     text("But which gives invaluable knowledge, the real treasure indeed", displayWidth/2 - 75, 140);
          for(var plr in allPlayers){
             
             
@@ -187,11 +214,11 @@ class Game{
              }
              textSize(25);
              fill("white");
-             text("Player 1 : "+allPlayers.player1.score,50,50);
-             text("Player 2 : "+allPlayers.player2.score,50,100);
-             text("Player 3 :"+allPlayers.player3.score,50,150);
+             text(allPlayers.player1.name+" : "+allPlayers.player1.score,50,50);
+             text(allPlayers.player2.name+" : "+allPlayers.player2.score,50,100);
+             text(allPlayers.player3.name+" : "+allPlayers.player3.score,50,150);
             
-             console.log(allPlayers);
+             
          
          }
        // console.log("E");
@@ -209,7 +236,7 @@ class Game{
     
          if (frameCount % 30 === 0) {
              //console.log("Hello");
-             coins = createSprite(random(100, 1000), 0, 100, 100);
+             coins = createSprite(random(100, displayWidth - 100), 0, 100, 100);
              coins.velocityY = 7;
              
             coins.addImage(coin_img);
@@ -234,7 +261,7 @@ class Game{
                }
                if (frameCount % 30 === 0) {
                 //console.log("Hello");
-                books = createSprite(random(100, 1000), 0, 100, 100);
+                books = createSprite(random(100, displayWidth - 100), 0, 100, 100);
                 books.velocityY = 7;
                 
                books.addImage(book_img);
@@ -260,7 +287,7 @@ class Game{
                   }
                   if (frameCount % 30 === 0) {
                     //console.log("Hello");
-                    keys = createSprite(random(100, 1000), 0, 100, 100);
+                    keys = createSprite(random(100, displayWidth - 100), 0, 100, 100);
                     keys.velocityY = 7;
                     
                    keys.addImage(key_img);
@@ -286,8 +313,9 @@ class Game{
                      if(player.score > 50){
                        
                          player.rank1 = player.rank1 + 1;
-                         //Player.updatePlayersAtEnd(player.rank);
-                         end();
+                         Player.updatePlayersAtEnd(player.rank1);
+                         //console.log(player.rank1);
+                         gameState = 2;
                      }
          }
 

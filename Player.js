@@ -35,7 +35,7 @@ class Player{
         })
     }
     getPlayersAtEnd(){
-        database.ref('PlayersAtEnd').on("value",function(data){
+        database.ref('PlayersAtEnd').on("value",(data) => {
            // console.log(data.val());
            this.rank1 = data.val();
         })

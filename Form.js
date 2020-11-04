@@ -1,6 +1,6 @@
 class Form{
     constructor(){
-        this.input = createInput("Name");
+        this.input = createInput("");
         this.button = createButton("Play");
         this.title = createElement('h2');
         
@@ -11,9 +11,9 @@ class Form{
     }
     display(){
         this.title.html("Can You Find the Treasure?");
-        this.title.position(350,350);
-        this.input.position(550,400);
-        this.button.position(550,400);
+        this.title.position(displayWidth/2 - 200, 50);
+        this.input.position(displayWidth/2 - 130, displayHeight/2);
+        this.button.position(displayWidth/2 - 150, displayHeight/2);
         this.button.mousePressed(() => {
             this.input.hide();
             this.button.hide();
